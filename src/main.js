@@ -1,7 +1,6 @@
-import Vue from 'vue'
-import App from './App.vue'
+import SearchWidget from './components/SearchWidget'
+import Geocoder from './models/Geocoder'
+import Parcel from './models/Parcel'
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
-})
+export default SearchWidget
+export { Geocoder, Parcel }
