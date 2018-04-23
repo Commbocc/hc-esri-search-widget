@@ -46,8 +46,8 @@
 
 <script>
 import { loadModules } from 'esri-loader'
+import { Geocoder } from '../main'
 import EsriPortalMap from 'esri-portal-map'
-import Geocoder from '../models/Geocoder'
 import debounce from 'lodash.debounce'
 
 export default {

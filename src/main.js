@@ -1,6 +1,3 @@
-import SearchWidget from './components/SearchWidget'
-import Geocoder from './models/Geocoder'
-import Parcel from './models/Parcel'
-
-export default SearchWidget
-export { Geocoder, Parcel }
+export { default } from './components/SearchWidget'
+export { default as Geocoder } from './models/Geocoder'
+export { default as Parcel } from './models/Parcel'
