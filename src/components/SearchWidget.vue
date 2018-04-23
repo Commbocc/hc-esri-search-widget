@@ -102,12 +102,15 @@ export default {
     })
   },
   methods: {
-    search (e) {
+    search (e = null) {
+      if (typeof e === 'string') {
+        this.userInput = e
+      }
       this.$emit('submit', e)
       this.isSearching = true
       this.status = 'Searching...'
 
-      this.searchWidget.search(this.userInput).then(event => {
+      return this.searchWidget.search(this.userInput).then(event => {
         if (!event || !event.results || !event.results[this.selectedSourceIndex] || !event.results[this.selectedSourceIndex].results) {
           throw new Error('An error has occured with the geolocation service. Please try again at a later time.')
         } else if (event.results[this.selectedSourceIndex].results.length) {
@@ -123,6 +126,7 @@ export default {
         this.isSearching = false
         this.status = null
         this.$emit('result', this.searchResult)
+        return this.searchResult
       })
     },
     setSearchResult (props = {}) {
