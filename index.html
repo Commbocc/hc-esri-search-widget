@@ -26,7 +26,10 @@
     <section class="container">
 
       <!-- PLACE CONTENT HERE -->
-      <div id="app"></div>
+      <div id="app">
+        <form is="HcEsriSearchWidget" @submit="reset" @result="handleResult"></form>
+        <pre class="bg-dark text-light p-2">{{ searchResult }}</pre>
+      </div>
 
     </section>
 
@@ -34,6 +37,33 @@
 
   </main>
 
+  <!-- include babel-polyfill for IE11 Promise support -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script> -->
+  <!-- include Vue -->
+  <script src="/node_modules/vue/dist/vue.min.js"></script>
   <script src="/dist/build.js"></script>
+  <script type="text/javascript">
+  // var App = Vue.extend(HcEsriSearchWidget)
+  // new App().$mount('#app').$on('result', result => {
+  //   console.log('result', result)
+  // })
+  var app = new Vue({
+    el: '#app',
+    components: { HcEsriSearchWidget },
+    data() {
+      return {
+        searchResult: {}
+      }
+    },
+    methods: {
+      reset(e) {
+        this.searchResult = {}
+      },
+      handleResult(result) {
+        this.searchResult = result
+      }
+    }
+  })
+  </script>
 </body>
 </html>
