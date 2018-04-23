@@ -19,7 +19,7 @@ export default class Geocoder {
   static initLocator () {
     return loadModules(['esri/tasks/Locator']).then(([Locator]) => {
       return new Locator({
-        url: Geocoder.esriSearchSource.locator.url
+        url: this.esriSearchSource.locator.url
       })
     })
   }
