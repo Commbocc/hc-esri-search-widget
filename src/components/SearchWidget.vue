@@ -33,7 +33,9 @@
 
       <!-- status -->
       <div id="status" class="small form-text text-muted">
-        {{ status }}
+        <slot>
+          {{ status }}
+        </slot>
         &nbsp;
       </div>
     </div>
