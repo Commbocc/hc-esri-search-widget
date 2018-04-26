@@ -34,7 +34,7 @@
   </main>
 
   <!-- include babel-polyfill for IE11 Promise support -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
   <!-- include Vue -->
   <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
   <script src="./dist/build.js"></script>
@@ -45,21 +45,21 @@
   // })
   var app = new Vue({
     el: '#app',
-    components: { HcEsriSearchWidget },
-    data() {
+    components: { HcEsriSearchWidget: HcEsriSearchWidget },
+    data: function data() {
       return {
         searchResult: {}
-      }
+      };
     },
     methods: {
-      reset(e) {
-        this.searchResult = {}
+      reset: function reset(e) {
+        this.searchResult = {};
       },
-      handleResult(result) {
-        this.searchResult = result
+      handleResult: function handleResult(result) {
+        this.searchResult = result;
       }
     }
-  })
+  });
   </script>
 </body>
 </html>
