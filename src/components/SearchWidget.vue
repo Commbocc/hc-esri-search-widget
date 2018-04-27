@@ -51,6 +51,7 @@ import { loadModules } from 'esri-loader'
 import Geocoder from '../models/Geocoder'
 import EsriPortalMap from 'esri-portal-map'
 import debounce from 'lodash.debounce'
+import SearchResult from '../models/SearchResult'
 
 export default {
   components: { EsriPortalMap },
@@ -132,12 +133,9 @@ export default {
       })
     },
     setSearchResult (props = {}) {
-      this.searchResult = Object.assign({
+      this.searchResult = new SearchResult({
         userInput: this.userInput,
-        source: this.searchSources[this.selectedSourceIndex],
-        hasFeature: function () {
-          return (this.result && this.result.feature) ? true : false
-        }
+        source: this.searchSources[this.selectedSourceIndex]
       }, props)
     },
     makeSuggestions: debounce(function(e) {
@@ -156,23 +154,9 @@ export default {
         })
       })
     },
-    queryFeatures (url = null) {
-      return loadModules([
-        'esri/layers/FeatureLayer',
-        'esri/tasks/support/Query'
-      ]).then(([FeatureLayer, Query]) => {
-        let fl = new FeatureLayer({ url })
-
-        let query = new Query({
-          returnGeometry: false,
-          outFields: ['*'],
-          geometry: this.searchResult.result.feature.geometry
-        })
-
-        return fl.queryFeatures(query).then(result => {
-          return (result.features.length) ? result.features[0] : false
-        })
-      }).catch(err => false)
+    // TODO: deprecate method queryFeatures
+    queryFeatures (url) {
+      return this.searchResult.queryFeatures(url)
     }
   },
   computed: {

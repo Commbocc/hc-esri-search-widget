@@ -22,23 +22,42 @@ Install in browser or via NPM.
 <script src="https://commbocc.github.io/hc-esri-search-widget/dist/build.js"></script>
 
 <script type="text/javascript">
-// compile with babel repl for IE11
+// var flUrl = '' // feature layer url
 var app = new Vue({
   el: '#app',
-  components: { HcEsriSearchWidget },
-  data() {
+  components: { HcEsriSearchWidget: HcEsriSearchWidget },
+  data: function data() {
     return {
-      searchResult: null
+      searchResult: null,
+      feature: null
     }
   },
   methods: {
-    reset(e) {
+    reset: function reset(e) {
       this.searchResult = null
     },
-    handleResult(result) {
-      this.searchResult = result
+    handleResult: function handleResult(result) {
+      console.log('result', result)
+      result.queryFeatures(flUrl).then(function(feature) {
+        console.log('feature', feature)
+      })
     }
   }
+})
+</script>
+```
+
+**- or with $mount() -**
+
+```html
+<script type="text/javascript">
+// var flUrl = '' // feature layer url
+var App = Vue.extend(HcEsriSearchWidget)
+var app = new App().$mount('#app').$on('result', function(result) {
+  console.log('result', result)
+  result.queryFeatures(flUrl).then(function(feature) {
+    console.log('feature', feature)
+  })
 })
 </script>
 ```
@@ -92,6 +111,19 @@ The default values are shown below:
 ```
 
 The map must be loaded if using a [Feature Layer](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html#FeatureLayerSource) as a search source.
+
+## SearchResult Class
+
+```js
+{  
+  userInput: String,
+  source: Object,
+  result: Object,
+  hasFeature: f() Boolean,
+  queryFeatures: f(url) Promise<Feature>,
+  error: Error
+}
+```
 
 ## Build Setup
 

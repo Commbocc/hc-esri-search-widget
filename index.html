@@ -25,7 +25,7 @@
         <!-- PLACE CONTENT HERE -->
         <div id="app">
           <form is="HcEsriSearchWidget" @submit="reset" @result="handleResult"></form>
-          <pre class="bg-dark text-light p-2">{{ searchResult }}</pre>
+          <pre class="bg-dark text-light p-2">{{ $data }}</pre>
         </div>
 
       </div>
@@ -39,27 +39,43 @@
   <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
   <script src="./dist/build.js"></script>
   <script type="text/javascript">
-  // var App = Vue.extend(HcEsriSearchWidget)
-  // new App().$mount('#app').$on('result', result => {
-  //   console.log('result', result)
-  // })
+  // url of feature layer to be queried
+  var flUrl = 'https://services.arcgis.com/3wFbqsFPLeKqOlIK/ArcGIS/rest/services/EVACUATION_ZONES/FeatureServer/0'
+
+  // App
   var app = new Vue({
     el: '#app',
     components: { HcEsriSearchWidget: HcEsriSearchWidget },
     data: function data() {
       return {
-        searchResult: {}
-      };
+        searchResult: null,
+        feature: null
+      }
     },
     methods: {
       reset: function reset(e) {
-        this.searchResult = {};
+        this.searchResult = null
       },
       handleResult: function handleResult(result) {
-        this.searchResult = result;
+        console.log('result', result)
+        this.searchResult = result
+        result.queryFeatures(flUrl).then(function(feature) {
+          console.log('feature', feature)
+          app.feature = feature
+        })
       }
     }
-  });
+  })
+
+  // // App with $mount
+  // var App = Vue.extend(HcEsriSearchWidget)
+  // var app = new App().$mount('#app').$on('result', function(result) {
+  //   console.log('result', result)
+  //   result.queryFeatures(flUrl).then(function(feature) {
+  //     console.log('feature', feature)
+  //   })
+  // })
+
   </script>
 </body>
 </html>
