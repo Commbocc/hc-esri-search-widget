@@ -120,7 +120,7 @@ The map must be loaded if using a [Feature Layer](https://developers.arcgis.com/
   source: Object,
   result: Object,
   hasFeature: f() Boolean,
-  queryFeatures: f(url) Promise<Feature>,
+  queryFeatures: f(url, queryParams) Promise<Feature>,
   error: Error
 }
 ```
