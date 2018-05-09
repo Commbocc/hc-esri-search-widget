@@ -10,20 +10,19 @@ function SearchResult (data, props) {
     return (this.result && this.result.feature) ? true : false
   }
 
-  this.queryFeatures = function (url) {
+  this.queryFeatures = function (url, queryParams) {
     return loadModules([
-      'esri/layers/FeatureLayer',
-      'esri/tasks/support/Query'
-    ]).then(([FeatureLayer, Query]) => {
+      'esri/layers/FeatureLayer'
+    ]).then(([FeatureLayer]) => {
       let fl = new FeatureLayer({ url })
 
-      let query = new Query({
+      let params = Object.assign({
         returnGeometry: false,
         outFields: ['*'],
         geometry: this.result.feature.geometry
-      })
+      }, queryParams)
 
-      return fl.queryFeatures(query).then(result => {
+      return fl.queryFeatures(params).then(result => {
         return (result.features.length) ? result.features[0] : null
       })
     }).catch(err => false)
