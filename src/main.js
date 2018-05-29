@@ -1,3 +1,8 @@
-export { default } from './components/SearchWidget'
-export { default as Geocoder } from './models/Geocoder'
-export { default as Parcel } from './models/Parcel'
+import HcEsriSearchWidget from './components/SearchWidget'
+import Geocoder from './models/Geocoder'
+import Parcel from './models/Parcel'
+
+HcEsriSearchWidget.Geocoder = Geocoder
+HcEsriSearchWidget.Parcel = Parcel
+
+export default HcEsriSearchWidget
