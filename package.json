@@ -11,7 +11,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
-    "esri-loader": "^2.2.0",
+    "esri-loader": "^2.3.0",
     "esri-portal-map": "git+https://github.com/Commbocc/esri-portal-map.git",
     "lodash.debounce": "^4.0.8",
     "vue": "^2.5.11"
