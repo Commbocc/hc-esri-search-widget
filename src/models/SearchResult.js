@@ -1,16 +1,18 @@
 import { loadModules } from 'esri-loader'
 
-function SearchResult (data, props) {
-  this.userInput = data.userInput
-  this.source = data.source
-  this.result = props.result || null
-  this.error = props.error || null
+export default class SearchResult {
+  constructor (data, props) {
+    this.userInput = data.userInput
+    this.source = data.source
+    this.result = props.result || null
+    this.error = props.error || null
+  }
 
-  this.hasFeature = function () {
+  hasFeature () {
     return (this.result && this.result.feature) ? true : false
   }
 
-  this.queryFeatures = function (url, queryParams) {
+  queryFeatures (url, queryParams) {
     return loadModules([
       'esri/layers/FeatureLayer'
     ]).then(([FeatureLayer]) => {
@@ -28,5 +30,3 @@ function SearchResult (data, props) {
     }).catch(err => false)
   }
 }
-
-export default SearchResult
