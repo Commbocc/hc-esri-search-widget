@@ -8,7 +8,8 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js',
     libraryExport: 'default',
-    library: 'HcEsriSearchWidget'
+    library: 'HcEsriSearchWidget',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
