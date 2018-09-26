@@ -83,7 +83,6 @@ export default {
   mounted () {
     this.initSearchWidget().then(widget => {
       this.searchWidget = widget
-      this.searchWidget.sources = this.searchSources
 
       if (this.loadMap) {
         this.$refs.map.mapview.when(mapview => {
@@ -150,7 +149,9 @@ export default {
         'esri/widgets/Search'
       ]).then(([Search]) => {
         return new Search({
-          container: 'searchWidget'
+          container: 'searchWidget',
+          sources: this.searchSources,
+          includeDefaultSources: false
         })
       })
     },
