@@ -93,6 +93,57 @@ export default {
 </script>
 ```
 
+#### Vuex
+
+```html
+<!-- App.vue -->
+<template>
+  <main>
+    <form is="HcEsriSearchWidget" @submit="reset" @result="handleResult"></form>
+  </main>
+</template>
+
+<script>
+import { mapActions, mapState } from 'vuex'
+import HcEsriSearchWidget from 'hc-esri-search-widget'
+
+export default {
+  // ...
+  components: { HcEsriSearchWidget },
+  methods: mapActions(['reset', 'handleResult']),
+  computed: mapState({
+    searchResult: state => state.search.result
+  })
+  // ...
+}
+</script>
+```
+
+```js
+// https://vuex.vuejs.org/guide/modules.html
+// search.js
+export default {
+  state: {
+    result: null,
+  },
+  actions: {
+    handleSearchResult ({ commit }, result) {
+      if (result.hasFeature()) {
+        commit('setSearchResult', result)
+      }
+    },
+    reset ({ commit }, e) {
+      commit('setSearchResult', null)
+    }
+  },
+  mutations: {
+    setSearchResult (state, data) {
+      state.result = data
+    }
+  }
+}
+```
+
 ## Customizations
 
 The `HcEsriSearchWidget` component accepts the following properties as options:
