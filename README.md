@@ -121,24 +121,26 @@ export default {
 
 ```js
 // https://vuex.vuejs.org/guide/modules.html
-// search.js
+// store/index.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import { VuexModule as search } from 'hc-esri-search-widget'
+
+Vue.use(Vuex)
+
 export default {
+  modules: { search }
   state: {
     result: null,
   },
   actions: {
-    handleSearchResult ({ commit }, result) {
-      if (result.hasFeature()) {
-        commit('setSearchResult', result)
-      }
+    handleSearchResult ({ dispatch, rootState }, searchResult) {
+      dispatch('saveSearchResult', searchResult).then(result => {
+        // result is now saved to rootState.search.result
+      })
     },
     reset ({ commit }, e) {
       commit('setSearchResult', null)
-    }
-  },
-  mutations: {
-    setSearchResult (state, data) {
-      state.result = data
     }
   }
 }
