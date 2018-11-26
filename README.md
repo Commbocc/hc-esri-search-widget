@@ -129,10 +129,7 @@ import { VuexModule as search } from 'hc-esri-search-widget'
 Vue.use(Vuex)
 
 export default {
-  modules: { search }
-  state: {
-    result: null,
-  },
+  modules: { search },
   actions: {
     handleSearchResult ({ dispatch, rootState }, searchResult) {
       dispatch('saveSearchResult', searchResult).then(result => {
